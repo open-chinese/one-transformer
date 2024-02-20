@@ -1,4 +1,4 @@
-[English](#One-Transformer) | [简体中文](#One-Transformer)
+[English](#one-transformer-project) | [简体中文](#one-transformer项目)
 # One-Transformer Project
 
 ## About this project
