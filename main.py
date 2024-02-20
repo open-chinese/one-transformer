@@ -39,7 +39,7 @@ class Dictionary(object):
 class Corpus(object):
     def __init__(self, path, tokenize=True):
         self.dictionary = Dictionary()
-        self.dict_path = os.path.join(path, 'dict.json')
+        self.dict_path = './data/dict.json'
         self.train_data = os.path.join(path, 'train.tsv')
         self.valid_data = os.path.join(path, 'valid.tsv')
         self.test_data = os.path.join(path, 'test.tsv')
@@ -183,14 +183,14 @@ class TransformerModel(nn.Module):
 ###############################################################################
 
 parser = argparse.ArgumentParser(description='PyTorch Transformer Language Model')
-parser.add_argument('--data', type=str, default='./data', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='./data/200k', help='location of the data corpus')
 parser.add_argument('--d_model', type=int, default=256, help='size of word embeddings')
 parser.add_argument('--dim_feedforward', type=int, default=1024, help='number of hidden units per layer')
 parser.add_argument('--nlayers', type=int, default=2, help='number of layers')
 parser.add_argument('--lr', type=float, default=0.0001, help='initial learning rate')
 parser.add_argument('--clip', type=float, default=0.25, help='gradient clipping')
 parser.add_argument('--epochs', type=int, default=4, help='upper epoch limit')
-parser.add_argument('--batch_size', type=int, default=64, metavar='N', help='batch size')
+parser.add_argument('--batch_size', type=int, default=128, metavar='N', help='batch size')
 parser.add_argument('--seq_len', type=int, default=32, help='sequence length')
 parser.add_argument('--dropout', type=float, default=0.1, help='dropout applied to layers (0 = no dropout)')
 parser.add_argument('--tied', action='store_true', help='tie the word embedding and softmax weights')
@@ -339,13 +339,16 @@ try:
         print('\nEpoch ', epoch,  '-' * 89)
         print(' - evaluation loss: {0}'.format(val_loss))
         print('Epoch ', epoch,  '-' * 89)
+        with open(args.save, 'wb') as f:
+            torch.save(model, f)
+            corpus.save_dictionary()  # save the tokenizer dictionary
+
         # Save the model if the validation loss is the best so far.
-        if not best_val_loss or val_loss < best_val_loss:
-            with open(args.save, 'wb') as f:
-                torch.save(model, f)
-                # save the tokenizer dictionary
-                corpus.save_dictionary()
-            best_val_loss = val_loss
+        # if not best_val_loss or val_loss < best_val_loss:
+        #     with open(args.save, 'wb') as f:
+        #         torch.save(model, f)
+        #         corpus.save_dictionary()  # save the tokenizer dictionary
+        #     best_val_loss = val_loss
         # update learning rate based on lr scheduler
         lr_scheduler.step()
 except KeyboardInterrupt:
