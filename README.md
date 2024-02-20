@@ -1,3 +1,5 @@
+[English](#OneTransformer) | [简体中文](#中文)
+
 # OneTransformer
 This is tutorial for training a PyTorch transformer from scratch
 
@@ -65,6 +67,7 @@ I used 10k training data, batch size 16, lr init with 1e-4, and StepLR gamma 0.1
 3295799.9873462 --> nine hundred and ninety three million , two hundred and ninety seven thousand , four hundred and sixty five point three eight two seven
 ```
 
+# 中文
 
 
 
