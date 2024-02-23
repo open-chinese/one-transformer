@@ -183,7 +183,7 @@ class TransformerModel(nn.Module):
 ###############################################################################
 
 parser = argparse.ArgumentParser(description='PyTorch Transformer Language Model')
-parser.add_argument('--data', type=str, default='./data/200k', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='./data/10m', help='location of the data corpus')
 parser.add_argument('--d_model', type=int, default=256, help='size of word embeddings')
 parser.add_argument('--dim_feedforward', type=int, default=1024, help='number of hidden units per layer')
 parser.add_argument('--nlayers', type=int, default=2, help='number of layers')
